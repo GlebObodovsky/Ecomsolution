@@ -1,0 +1,8 @@
+List of assumptions
+1. The map is a rectangular grid. This statement allows us to operate with X/Y coordinates incrementing and decrementing grid points accordingly to a robot's current orientation;
+2. There is only one robot on a map at a time. Thus concurrent handling is unnecessary and ensures the map state can be changed by the current robot only, until all actions of that robot have been executed, then the next robot is dropped off;
+3. Any step of a robot that leads out of the edge considered to be the last. This means that we have to check each step of a martian robot to ensure it doesn't break the edge. But if it does – the robot is lost;
+4. Any step of a robot that leads the robot to fall off at the same place where previous robots have fallen should be ignored.  Hence before changing the robot's position we should ensure that there's no closed border before the robot;
+5. The border should be closed at a position where the latter robot has fallen off. This forces us to keep the state of a current map so the map should store a set of closed borders;
+6. Any step of a robot is a potential transaction. There are two objects that may be changed with each step of a robot. The map's border may be closed if a robot steps out of the edge so does the robot may be lost. With that being said we need to ensure that both objects are changed appropriately if there's the robot loss;
+7. There's a possibility that additional commands maybe required. This leads us to create a certain commands provider that may be replaced on the execution and injected into an operator (the one that operates robots from Earth).
